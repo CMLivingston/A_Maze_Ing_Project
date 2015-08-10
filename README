@@ -1,0 +1,89 @@
+__________________________________________________________________________
+
+Author - Cing is Believing
+	
+	Min Hyung Kang
+	Young Hoon Kang
+	Chris Livingston
+	Tae Ho Sung
+
+
+CS 50 - Winter 2015
+Assignment: Amazing Project 
+Platform: Mac OSX Version 10.9.5
+
+
+How to run:
+To compile in the shell, enter: make
+To run, enter:
+./maze –n [nAvatars] -d [Difficulty] –h[Hostname]
+To run the test script, enter:
+BATS.sh
+See the test log with:
+	less [logfile name]
+
+ ./maze –n 3 –d 5 –h pierce.cs.dartmouth.edu
+ 
+Note : the parameters do not need to be in order as long as the options (-n,-d,-h) are specified
+ 
+[nAvatars] Indicates the number of Avatars to be placed inside the maze
+Requirement : The value should be a positive integer between 2 and 10.
+Usage :  AMStartup takes in this parameter and sends a request to the server stating that we have this many avatars. It also creates specified amount of avatars by forking Avatar.c.
+  
+[Difficulty] Indicates the difficulty of the maze
+Requirement : The value should be an integer between 0 and 9
+Usage : AMStartup takes in this parameter and sends a request to the server asking for the maze of specified difficulty. It also passes on the information to Avatar.c to let each Avatar know what kind of peril they are dealing with.
+ 
+[Hostname] Indicates the host that will run the maze
+Requirement : For this specific maze program, the host should always be pierce.cs.dartmouth.edu
+Usage : AMStartup takes in this parameter and sends a request to the server at this host, from which it will receive the port number to run the maze on. The information will then be passed on to each Avatar.
+ 
+
+Files: 
+
+The files necessary to compile this program are located at:
+
+git://git.cs.dartmouth.edu/cs50-W15-cling.git 
+
+(git pull from the command line) 
+
+	Source files:
+		
+		AMStartup.c - program that allocates initial structures and connects to server 
+		Avatar.c - avatar class
+		Graphics.c - graphics module 
+		Graphics.h
+
+	Library files:
+
+		amazing.h - header file provided by instructor for the assignment
+		avatar_func.c - functions to assist Avatar.c in solving the maze
+		avatar_func.h
+		common.c - definitions for simple helper function prototypes
+		common.h
+		graph.c - graph structure and member functions 
+		graph.h
+		hashTable.c - hash table structure and member functions 
+		hashTable.h
+		myList.c - list structure and member functions
+		myList.h
+		shmAMStartup.c - functions for shared memory allocation
+		shmAMStartup.h
+		shmAvatar.c - functions for shared memory retrieval 
+		shmAvatar.h
+
+	Testing files:
+		
+		BATS.sh - testing file for main program
+		tester.c - located at testing folder. Call make tester in the directory to build and test.
+	
+
+
+Additional Notes:
+
+ - If you terminate the program prematurely, the user must call ‘ipcrm -a’ from the command line to remove the shared memory segments that were not de-allocated properly at the final cleanup portion of the main program. The program will return a shmget error if the shared memory is not de-allocated. 
+
+
+ - It is assumed that the user has proper setting for graphics set up. 
+
+ - The GTK library has natural memory leaks.
